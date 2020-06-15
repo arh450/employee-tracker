@@ -1,6 +1,9 @@
 const mysql = require('mysql');
 require("dotenv").config();
 
+const cTable = require('console.table');
+const inquirer = require('inquirer');
+
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
