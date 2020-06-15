@@ -44,7 +44,7 @@ connection.connect((err) => {
     // * EMPLOYEE (DONE)
 
 //  SEEDS
-    //  PRE-POPULATE DB
+    //  PRE-POPULATE DB (Done)
 
 //  OTHER THINGS TO CONSIDER
     // CLASS FOR SQL QUERIES
