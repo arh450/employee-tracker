@@ -1,0 +1,24 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "CLI Application that allows a user to add departments, roles, and employees",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gheptig/employee-tracker.git"
+  },
+  "author": "Gus Heptig",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gheptig/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/gheptig/employee-tracker#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "inquirer": "^7.2.0",
+    "mysql": "^2.18.1"
+  }
+}
