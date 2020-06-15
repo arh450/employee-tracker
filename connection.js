@@ -2,7 +2,7 @@ const mysql = require('mysql');
 require("dotenv").config();
 
 const functions = require("./index");
-const Database = require("./lib/Database");
+const Database = require("./Database");
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -17,11 +17,11 @@ connection.connect((err) => {
         throw (err);
     }
     console.log(`connected as id ${connection.threadId}`);
-    selectMenu()
+
 
 });
 
-
+module.exports = connection;
 // MINIMUM REQUIREMENTS
 //  * Add departments, roles, employees
 //  * View departments, roles, employees
@@ -52,4 +52,3 @@ connection.connect((err) => {
 // USE SQL JOIN
 // CLASS FOR INQUIRER QUESTIONS(?)
 
-module.exports = connection;
