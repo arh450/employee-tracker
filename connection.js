@@ -39,6 +39,10 @@ const selectMenu = () => {
     .then((input) => {
       if (input.selection === "Add Department") {
         addDepartment();
+      } else if (input.selection === "Add Role") {
+        addRole();
+      } else if (input.selection === "Add Employee") {
+        addEmployee();
       } else if (input.selection === "View Departments") {
         viewDepartments();
       } else if (input.selection === "View Roles") {
@@ -60,7 +64,7 @@ const addDepartment = () => {
     })
     .then((input) => {
       connection.query(
-        "INSERT INTO department SET?",
+        "INSERT INTO department SET ?",
         {
           name: input.departmentName,
         },
@@ -69,6 +73,44 @@ const addDepartment = () => {
             throw err;
           }
           console.log("Department Added");
+          selectMenu();
+        }
+      );
+    });
+};
+
+const addRole = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "roleTitle",
+        message: "Enter new role title",
+      },
+      {
+        type: "input",
+        name: "roleSalary",
+        message: "Enter salary for role",
+      },
+      {
+        type: "input",
+        name: "roleID",
+        message: "Enter Department ID for role",
+      },
+    ])
+    .then((input) => {
+      connection.query(
+        "INSERT INTO role SET ?",
+        {
+          title: input.roleTitle,
+          salary: input.roleSalary,
+          department_id: input.roleID,
+        },
+        (err) => {
+          if (err) {
+            throw err;
+          }
+          console.log("Role Added");
           selectMenu();
         }
       );
