@@ -94,7 +94,7 @@ const addRole = () => {
       },
       {
         type: "input",
-        name: "roleID",
+        name: "roleDepartmentID",
         message: "Enter Department ID for role",
       },
     ])
@@ -104,13 +104,57 @@ const addRole = () => {
         {
           title: input.roleTitle,
           salary: input.roleSalary,
-          department_id: input.roleID,
+          department_id: input.roleDepartmentID,
         },
         (err) => {
           if (err) {
             throw err;
           }
           console.log("Role Added");
+          selectMenu();
+        }
+      );
+    });
+};
+
+const addEmployee = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "employeeFirstName",
+        message: "Enter employee first name",
+      },
+      {
+        type: "input",
+        name: "employeeLastName",
+        message: "Enter employee last name",
+      },
+      {
+        type: "input",
+        name: "employeeRoleID",
+        message: "Enter role ID for employee",
+      },
+      {
+        type: "input",
+        name: "employeeManagerID",
+        message: "Enter Manager ID for employee",
+      },
+    ])
+    .then((input) => {
+      connection.query(
+        "INSERT INTO Employee SET ?",
+        {
+          first_name: input.employeeFirstName,
+          last_name: input.employeeLastName,
+          role_id: input.employeeRoleID,
+          manager_id: input.employeeManagerID,
+        },
+        (err) => {
+          if (err) {
+            throw err;
+          }
+          console.log("Employee Added");
           selectMenu();
         }
       );
