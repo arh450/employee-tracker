@@ -1,8 +1,7 @@
 const mysql = require('mysql');
+const inquirer = require('inquirer');
 require("dotenv").config();
 
-const functions = require("./index");
-const Database = require("./Database");
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -21,7 +20,8 @@ connection.connect((err) => {
 
 });
 
-module.exports = connection;
+
+
 // MINIMUM REQUIREMENTS
 //  * Add departments, roles, employees
 //  * View departments, roles, employees
