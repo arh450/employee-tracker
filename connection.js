@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const inquirer = require("inquirer");
+const { prompt } = require("inquirer");
 require("dotenv").config();
 
 const connection = mysql.createConnection({
@@ -21,144 +21,136 @@ connection.connect((err) => {
 // Need Select menu prompt to trigger what task a user is trying to do
 
 const selectMenu = () => {
-  inquirer
-    .prompt({
-      type: "list",
-      name: "selection",
-      message: "Select an option",
-      choices: [
-        "Add Department",
-        "Add Role",
-        "Add Employee",
-        "View Departments",
-        "View Roles",
-        "View Employees",
-        "Quit",
-      ],
-    })
-    .then((input) => {
-      if (input.selection === "Add Department") {
-        addDepartment();
-      } else if (input.selection === "Add Role") {
-        addRole();
-      } else if (input.selection === "Add Employee") {
-        addEmployee();
-      } else if (input.selection === "View Departments") {
-        viewDepartments();
-      } else if (input.selection === "View Roles") {
-        viewRoles();
-      } else if (input.selection === "View Employees") {
-        viewEmployees();
-      } else {
-        quit();
-      }
-    });
+  prompt({
+    type: "list",
+    name: "selection",
+    message: "Select an option",
+    choices: [
+      "Add Department",
+      "Add Role",
+      "Add Employee",
+      "View Departments",
+      "View Roles",
+      "View Employees",
+      "Quit",
+    ],
+  }).then(({ selection }) => {
+    if (selection === "Add Department") {
+      addDepartment();
+    } else if (selection === "Add Role") {
+      addRole();
+    } else if (selection === "Add Employee") {
+      addEmployee();
+    } else if (selection === "View Departments") {
+      viewDepartments();
+    } else if (selection === "View Roles") {
+      viewRoles();
+    } else if (selection === "View Employees") {
+      viewEmployees();
+    } else {
+      quit();
+    }
+  });
 };
 
 const addDepartment = () => {
-  inquirer
-    .prompt({
-      type: "input",
-      name: "departmentName",
-      message: "Enter a new department name",
-    })
-    .then((input) => {
-      connection.query(
-        "INSERT INTO department SET ?",
-        {
-          name: input.departmentName,
-        },
-        (err) => {
-          if (err) {
-            throw err;
-          }
-          console.log("Department Added");
-          selectMenu();
+  prompt({
+    type: "input",
+    name: "dName",
+    message: "Enter a new department name",
+  }).then(({ dName }) => {
+    connection.query(
+      "INSERT INTO department SET ?",
+      {
+        name: dName,
+      },
+      (err) => {
+        if (err) {
+          throw err;
         }
-      );
-    });
+        console.log("Department Added");
+        selectMenu();
+      }
+    );
+  });
 };
 
 const addRole = () => {
-  inquirer
-    .prompt([
+  prompt([
+    {
+      type: "input",
+      name: "rTitle",
+      message: "Enter new role title",
+    },
+    {
+      type: "input",
+      name: "rSalary",
+      message: "Enter salary for role",
+    },
+    {
+      type: "input",
+      name: "rDepartmentID",
+      message: "Enter Department ID for role",
+    },
+  ]).then(({ rTitle, rSalary, rDepartmentID }) => {
+    connection.query(
+      "INSERT INTO role SET ?",
       {
-        type: "input",
-        name: "roleTitle",
-        message: "Enter new role title",
+        title: rTitle,
+        salary: rSalary,
+        department_id: rDepartmentID,
       },
-      {
-        type: "input",
-        name: "roleSalary",
-        message: "Enter salary for role",
-      },
-      {
-        type: "input",
-        name: "roleDepartmentID",
-        message: "Enter Department ID for role",
-      },
-    ])
-    .then((input) => {
-      connection.query(
-        "INSERT INTO role SET ?",
-        {
-          title: input.roleTitle,
-          salary: input.roleSalary,
-          department_id: input.roleDepartmentID,
-        },
-        (err) => {
-          if (err) {
-            throw err;
-          }
-          console.log("Role Added");
-          selectMenu();
+      (err) => {
+        if (err) {
+          throw err;
         }
-      );
-    });
+        console.log("Role Added");
+        selectMenu();
+      }
+    );
+  });
 };
 
 const addEmployee = () => {
-  inquirer
-    .prompt([
+  prompt([
+    {
+      type: "input",
+      name: "eFirstName",
+      message: "Enter employee first name",
+    },
+    {
+      type: "input",
+      name: "eLastName",
+      message: "Enter employee last name",
+    },
+    {
+      type: "input",
+      name: "eRoleID",
+      message: "Enter role ID for employee",
+    },
+    {
+      type: "input",
+      name: "eManagerID",
+      message: "Enter Manager ID for employee",
+    },
+  ]).then(({ eFirstName, eLastName, eRoleID, eManagerID }) => {
+    connection.query(
+      "INSERT INTO employee SET ?",
       {
-        type: "input",
-        name: "employeeFirstName",
-        message: "Enter employee first name",
+        first_name: eFirstName,
+        last_name: eLastName,
+        role_id: eRoleID,
+        manager_id: eManagerID,
       },
-      {
-        type: "input",
-        name: "employeeLastName",
-        message: "Enter employee last name",
-      },
-      {
-        type: "input",
-        name: "employeeRoleID",
-        message: "Enter role ID for employee",
-      },
-      {
-        type: "input",
-        name: "employeeManagerID",
-        message: "Enter Manager ID for employee",
-      },
-    ])
-    .then((input) => {
-      connection.query(
-        "INSERT INTO Employee SET ?",
-        {
-          first_name: input.employeeFirstName,
-          last_name: input.employeeLastName,
-          role_id: input.employeeRoleID,
-          manager_id: input.employeeManagerID,
-        },
-        (err) => {
-          if (err) {
-            throw err;
-          }
-          console.log("Employee Added");
-          selectMenu();
+      (err) => {
+        if (err) {
+          throw err;
         }
-      );
-    });
+        console.log("Employee Added");
+        selectMenu();
+      }
+    );
+  });
 };
 
 const viewDepartments = () => {
