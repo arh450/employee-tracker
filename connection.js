@@ -1,26 +1,69 @@
-const mysql = require('mysql');
-const inquirer = require('inquirer');
+const mysql = require("mysql");
+const inquirer = require("inquirer");
 require("dotenv").config();
 
-
 const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 connection.connect((err) => {
-    if (err) {
-        throw (err);
-    }
-    console.log(`connected as id ${connection.threadId}`);
-
-
+  if (err) {
+    throw err;
+  }
+  console.log(`connected as id ${connection.threadId}`);
+  selectMenu();
 });
 
+// Need Select menu prompt to trigger what task a user is trying to do
 
+const selectMenu = () => {
+  inquirer
+    .prompt({
+      type: "list",
+      name: "selection",
+      message: "Select an option",
+      choices: ["Add Department", "Add Role", "Add Employee"],
+    })
+    .then((input) => {
+      if (input.selection === "Add Department") {
+        addDepartment();
+      } else {
+        quit();
+      }
+    });
+};
+
+const addDepartment = () => {
+  inquirer
+    .prompt({
+      type: "input",
+      name: "departmentName",
+      message: "Enter a new department name",
+    })
+    .then((input) => {
+      connection.query(
+        "INSERT INTO department SET?",
+        {
+          name: input.departmentName,
+        },
+        (err) => {
+          if (err) {
+            throw err;
+          }
+          console.log("Department Added");
+          selectMenu();
+        }
+      );
+    });
+};
+
+const quit = () => {
+  connection.end();
+};
 
 // MINIMUM REQUIREMENTS
 //  * Add departments, roles, employees
@@ -51,4 +94,3 @@ connection.connect((err) => {
 // CLASS FOR SQL QUERIES
 // USE SQL JOIN
 // CLASS FOR INQUIRER QUESTIONS(?)
-
