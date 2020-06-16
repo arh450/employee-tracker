@@ -41,6 +41,10 @@ const selectMenu = () => {
         addDepartment();
       } else if (input.selection === "View Departments") {
         viewDepartments();
+      } else if (input.selection === "View Roles") {
+        viewRoles();
+      } else if (input.selection === "View Employees") {
+        viewEmployees();
       } else {
         quit();
       }
@@ -73,6 +77,20 @@ const addDepartment = () => {
 
 const viewDepartments = () => {
   connection.query("SELECT * FROM employee_tracker.department", (err, res) => {
+    console.table(res);
+    selectMenu();
+  });
+};
+
+const viewRoles = () => {
+  connection.query("SELECT * FROM employee_tracker.role", (err, res) => {
+    console.table(res);
+    selectMenu();
+  });
+};
+
+const viewEmployees = () => {
+  connection.query("SELECT * FROM employee_tracker.employee", (err, res) => {
     console.table(res);
     selectMenu();
   });
