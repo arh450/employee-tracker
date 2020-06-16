@@ -26,11 +26,21 @@ const selectMenu = () => {
       type: "list",
       name: "selection",
       message: "Select an option",
-      choices: ["Add Department", "Add Role", "Add Employee"],
+      choices: [
+        "Add Department",
+        "Add Role",
+        "Add Employee",
+        "View Departments",
+        "View Roles",
+        "View Employees",
+        "Quit",
+      ],
     })
     .then((input) => {
       if (input.selection === "Add Department") {
         addDepartment();
+      } else if (input.selection === "View Departments") {
+        viewDepartments();
       } else {
         quit();
       }
@@ -59,6 +69,13 @@ const addDepartment = () => {
         }
       );
     });
+};
+
+const viewDepartments = () => {
+  connection.query("SELECT * FROM employee_tracker.department", (err, res) => {
+    console.table(res);
+    selectMenu();
+  });
 };
 
 const quit = () => {
