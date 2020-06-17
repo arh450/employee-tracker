@@ -1,11 +1,10 @@
-const connection = require("./connection");
-const prompts = require("./prompts");
-
+const connection = require("./lib/connection");
 const { prompt } = require("inquirer");
+const { mOptions, aDeptInput, aRoleInput, aEmpInput } = require("./lib/prompts");
 
 
 const selectMenu = () => {
-    prompt(prompts.mOptions).then(({ selection }) => {
+    prompt(mOptions).then(({ selection }) => {
         if (selection === "Add Department") {
             addDepartment();
         } else if (selection === "Add Role") {
@@ -25,11 +24,7 @@ const selectMenu = () => {
 };
 
 const addDepartment = () => {
-    prompt({
-        type: "input",
-        name: "dName",
-        message: "Enter a new department name",
-    }).then(({ dName }) => {
+    prompt(aDeptInput).then(({ dName }) => {
         connection.query(
             "INSERT INTO department SET ?",
             {
@@ -47,23 +42,7 @@ const addDepartment = () => {
 };
 
 const addRole = () => {
-    prompt([
-        {
-            type: "input",
-            name: "rTitle",
-            message: "Enter new role title",
-        },
-        {
-            type: "input",
-            name: "rSalary",
-            message: "Enter salary for role",
-        },
-        {
-            type: "input",
-            name: "rDepartmentID",
-            message: "Enter Department ID for role",
-        },
-    ]).then(({ rTitle, rSalary, rDepartmentID }) => {
+    prompt(aRoleInput).then(({ rTitle, rSalary, rDepartmentID }) => {
         connection.query(
             "INSERT INTO role SET ?",
             {
@@ -83,28 +62,7 @@ const addRole = () => {
 };
 
 const addEmployee = () => {
-    prompt([
-        {
-            type: "input",
-            name: "eFirstName",
-            message: "Enter employee first name",
-        },
-        {
-            type: "input",
-            name: "eLastName",
-            message: "Enter employee last name",
-        },
-        {
-            type: "input",
-            name: "eRoleID",
-            message: "Enter role ID for employee",
-        },
-        {
-            type: "input",
-            name: "eManagerID",
-            message: "Enter Manager ID for employee",
-        },
-    ]).then(({ eFirstName, eLastName, eRoleID, eManagerID }) => {
+    prompt(aEmpInput).then(({ eFirstName, eLastName, eRoleID, eManagerID }) => {
         connection.query(
             "INSERT INTO employee SET ?",
             {
