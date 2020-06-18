@@ -1,11 +1,8 @@
-const connection = require("./lib/connection");
-const { mOptions, aDeptInput, aRoleInput, aEmpInput } = require("./lib/prompts")
+
 const { prompt } = require("inquirer");
 
-
-
 const selectMenu = () => {
-    prompt(mOptions).then(({ selection }) => {
+    prompt(prompts.mOptions).then(({ selection }) => {
         if (selection === "Add Department") {
             addDepartment();
         } else if (selection === "Add Role") {
@@ -25,7 +22,7 @@ const selectMenu = () => {
 };
 
 const addDepartment = () => {
-    prompt(aDeptInput).then(({ dName }) => {
+    prompt(prompts.aDeptInput).then(({ dName }) => {
         connection.query(
             "INSERT INTO department SET ?",
             {
@@ -43,7 +40,7 @@ const addDepartment = () => {
 };
 
 const addRole = () => {
-    prompt(aRoleInput).then(({ rTitle, rSalary, rDepartmentID }) => {
+    prompt(prompts.aRoleInput).then(({ rTitle, rSalary, rDepartmentID }) => {
         connection.query(
             "INSERT INTO role SET ?",
             {
@@ -63,7 +60,7 @@ const addRole = () => {
 };
 
 const addEmployee = () => {
-    prompt(aEmpInput).then(({ eFirstName, eLastName, eRoleID, eManagerID }) => {
+    prompt(prompts.aEmpInput).then(({ eFirstName, eLastName, eRoleID, eManagerID }) => {
         connection.query(
             "INSERT INTO employee SET ?",
             {
