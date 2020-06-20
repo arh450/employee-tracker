@@ -23,36 +23,6 @@ const selectMenu = () => {
     });
 };
 
-
-
-
-
-// const viewDepartments = () => {
-//     connection.query("SELECT * FROM employee_tracker.department", (err, res) => {
-//         console.table(res);
-//         selectMenu();
-//     });
-// };
-
-// const viewRoles = () => {
-//     connection.query("SELECT * FROM employee_tracker.role", (err, res) => {
-//         console.table(res);
-//         selectMenu();
-//     });
-// };
-
-// const viewEmployees = () => {
-//     connection.query("SELECT * FROM employee_tracker.employee", (err, res) => {
-//         console.table(res);
-//         selectMenu();
-//     });
-// };
-
-// const quit = () => {
-//     connection.end();
-// };
-
-
 selectMenu();
 
 
