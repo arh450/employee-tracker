@@ -17,14 +17,16 @@ const selectMenu = () => {
             Queries.viewRoles();
         } else if (selection === "View Employees") {
             Queries.viewEmployees();
-        } else {
+        } else if (selection === "Update Employee") {
+            Queries.updateEmployee();
+        }
+        else {
             Queries.quit();
         }
     });
 };
 
 selectMenu();
-
 
 // Need Select menu prompt to trigger what task a user is trying to do
 
