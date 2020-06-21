@@ -62,7 +62,9 @@ const addEmployee = () => {
 
 const viewDepartments = () => {
     Queries.viewDeptQuery().then((res) => {
+        console.log(`----------------------\n`);
         console.table(res)
+        console.log(`----------------------\n`);
         setTimeout(() => {
             selectMenu();
         }, 1000);
@@ -71,7 +73,9 @@ const viewDepartments = () => {
 
 const viewRoles = () => {
     Queries.viewRoleQuery().then((res) => {
+        console.log(`----------------------\n`);
         console.table(res)
+        console.log(`----------------------\n`);
         setTimeout(() => {
             selectMenu();
         }, 1000);
@@ -80,7 +84,9 @@ const viewRoles = () => {
 
 const viewEmployees = () => {
     Queries.viewEmpQuery().then((res) => {
+        console.log(`----------------------\n`);
         console.table(res);
+        console.log(`----------------------\n`);
         setTimeout(() => {
             selectMenu();
         }, 1000);
