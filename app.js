@@ -1,5 +1,5 @@
 const Queries = require("./lib/Queries");
-
+const cTable = require('console.table');
 const { prompt } = require("inquirer");
 const { mOptions, aDeptInput, aRoleInput, aEmpInput, uEmpInput, dOptions, } = require('./lib/prompts');
 
@@ -114,14 +114,24 @@ const deleteMenu = () => {
 }
 
 const deleteDepartment = () => {
-
-
+    Queries.deleteDeptQuery().then((res) => {
+        viewDepartments();
+    });
 }
 
 const quit = () => {
     Queries.quitConnection();
 }
 
+
+
+// .then((res) => {
+//     console.log(`Deleted department successfully`);
+//     console.table(viewDepartments());
+//     setTimeout(() => {
+//         selectMenu();
+//     }, 1000);
+// });
 // Need Select menu prompt to trigger what task a user is trying to do
 
 // MINIMUM REQUIREMENTS
