@@ -1,7 +1,7 @@
 const Queries = require("./lib/Queries");
 const cTable = require('console.table');
 const { prompt } = require("inquirer");
-const { mOptions, aDeptInput, aRoleInput, aEmpInput, uEmpInput, dOptions, } = require('./lib/prompts');
+const { mOptions, aDeptInput, aRoleInput, aEmpInput, dOptions, qOptions } = require('./lib/prompts');
 
 
 const selectMenu = () => {
@@ -19,7 +19,7 @@ const selectMenu = () => {
         } else if (selection === "View Employees") {
             viewEmployees();
         } else if (selection === "Update Employee") {
-            updateEmployee();
+            updateEmployeeRole();
         } else if (selection === "Delete Menu") {
             deleteMenu();
         } else {
@@ -87,16 +87,12 @@ const viewEmployees = () => {
     });
 }
 
-const updateEmployee = () => {
-    prompt(uEmpInput).then(({ updateRoleID, empUpdate }) => {
-        Queries.updateEmployeeQuery(updateRoleID, empUpdate).then((res) => {
-            console.log(`Updated role ID for employee ${empUpdate}`);
-            setTimeout(() => {
-                selectMenu();
-            }, 1000);
-        });
+const updateEmployeeRole = () => {
+    Queries.updateEmpRoleQuery().then((res) => {
+        setTimeout(() => {
+            selectMenu();
+        }, 1000);
     });
-
 }
 
 const deleteMenu = () => {
@@ -132,7 +128,14 @@ const deleteEmployee = () => {
 }
 
 const quit = () => {
-    Queries.quitConnection();
+    prompt(qOptions).then(({ yesNo }) => {
+        if (yesNo === "Yes, I'm sure") {
+            Queries.quitConnection();
+        } else {
+            selectMenu();
+        }
+    });
+
 }
 
 
