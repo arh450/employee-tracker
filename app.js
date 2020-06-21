@@ -1,7 +1,7 @@
 const Queries = require("./lib/Queries");
 
 const { prompt } = require("inquirer");
-const { mOptions, aDeptInput, aRoleInput, aEmpInput, uEmpInput } = require('./lib/prompts');
+const { mOptions, aDeptInput, aRoleInput, aEmpInput, uEmpInput, dOptions, } = require('./lib/prompts');
 
 
 const selectMenu = () => {
@@ -20,8 +20,9 @@ const selectMenu = () => {
             viewEmployees();
         } else if (selection === "Update Employee") {
             updateEmployee();
-        }
-        else {
+        } else if (selection === "Delete Menu") {
+            deleteMenu();
+        } else {
             quit();
         }
     });
@@ -61,6 +62,7 @@ const addEmployee = () => {
 
 const viewDepartments = () => {
     Queries.viewDeptQuery().then((res) => {
+        console.table(res)
         setTimeout(() => {
             selectMenu();
         }, 1000);
@@ -69,6 +71,7 @@ const viewDepartments = () => {
 
 const viewRoles = () => {
     Queries.viewRoleQuery().then((res) => {
+        console.table(res)
         setTimeout(() => {
             selectMenu();
         }, 1000);
@@ -77,6 +80,7 @@ const viewRoles = () => {
 
 const viewEmployees = () => {
     Queries.viewEmpQuery().then((res) => {
+        console.table(res);
         setTimeout(() => {
             selectMenu();
         }, 1000);
@@ -92,6 +96,25 @@ const updateEmployee = () => {
             }, 1000);
         });
     });
+
+}
+
+const deleteMenu = () => {
+    prompt(dOptions).then(({ deleteSelection }) => {
+        if (deleteSelection === "Departments") {
+            deleteDepartment();
+        } else if (deleteSelection === "Roles") {
+            deleteRole();
+        } else if (deleteSelection === "Employees") {
+            deleteEmployee();
+        } else {
+            selectMenu();
+        }
+    });
+}
+
+const deleteDepartment = () => {
+
 
 }
 
