@@ -1,32 +1,79 @@
 const Queries = require("./lib/Queries");
 
 const { prompt } = require("inquirer");
-const { mOptions } = require('./lib/prompts');
+const { mOptions, aDeptInput, aRoleInput, aEmpInput, uEmpInput } = require('./lib/prompts');
+
 
 const selectMenu = () => {
     prompt(mOptions).then(({ selection }) => {
         if (selection === "Add Department") {
-            Queries.addDepartment();
+            addDepartment();
         } else if (selection === "Add Role") {
-            Queries.addRole();
+            addRole();
         } else if (selection === "Add Employee") {
-            Queries.addEmployee();
+            addEmployee();
         } else if (selection === "View Departments") {
-            Queries.viewDepartments();
+            viewDepartments();
         } else if (selection === "View Roles") {
-            Queries.viewRoles();
+            viewRoles();
         } else if (selection === "View Employees") {
-            Queries.viewEmployees();
+            viewEmployees();
         } else if (selection === "Update Employee") {
-            Queries.updateEmployee();
+            updateEmployee();
         }
         else {
-            Queries.quit();
+            quit();
         }
     });
 };
 
 selectMenu();
+
+const addDepartment = () => {
+    prompt(aDeptInput).then(({ dName }) => {
+        Queries.addDeptQuery(dName);
+    });
+};
+
+const addRole = () => {
+    prompt(aRoleInput).then(({ rTitle, rSalary, rDepartmentID }) => {
+        Queries.addRoleQuery(rTitle, rSalary, rDepartmentID);
+    });
+};
+
+const addEmployee = () => {
+    prompt(aEmpInput).then(({ eFirstName, eLastName, eRoleID, eManagerID }) => {
+        Queries.addEmpQuery(eFirstName, eLastName, eRoleID, eManagerID);
+    });
+}
+
+const viewDepartments = () => {
+    Queries.viewDeptQuery();
+}
+
+const viewRoles = () => {
+    Queries.viewRoleQuery();
+}
+
+const viewEmployees = () => {
+    Queries.viewEmpQuery();
+}
+
+const updateEmployee = () => {
+    prompt(uEmpInput).then(({ updateRoleID, empUpdate }) => {
+        Queries.updateEmployeeQuery(updateRoleID, empUpdate);
+    });
+}
+
+const quit = () => {
+    Queries.quitConnection();
+}
+
+
+
+
+
+
 
 // Need Select menu prompt to trigger what task a user is trying to do
 
