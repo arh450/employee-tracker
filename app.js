@@ -31,49 +31,73 @@ selectMenu();
 
 const addDepartment = () => {
     prompt(aDeptInput).then(({ dName }) => {
-        Queries.addDeptQuery(dName);
+        Queries.addDeptQuery(dName).then((res) => {
+            setTimeout(() => {
+                selectMenu();
+            }, 1000);
+        });
     });
 };
 
 const addRole = () => {
     prompt(aRoleInput).then(({ rTitle, rSalary, rDepartmentID }) => {
-        Queries.addRoleQuery(rTitle, rSalary, rDepartmentID);
+        Queries.addRoleQuery(rTitle, rSalary, rDepartmentID).then((res) => {
+            setTimeout(() => {
+                selectMenu();
+            }, 1000);
+        });
     });
 };
 
 const addEmployee = () => {
     prompt(aEmpInput).then(({ eFirstName, eLastName, eRoleID, eManagerID }) => {
-        Queries.addEmpQuery(eFirstName, eLastName, eRoleID, eManagerID);
+        Queries.addEmpQuery(eFirstName, eLastName, eRoleID, eManagerID).then((res) => {
+            setTimeout(() => {
+                selectMenu();
+            }, 1000);
+        });
     });
 }
 
 const viewDepartments = () => {
-    Queries.viewDeptQuery();
+    Queries.viewDeptQuery().then((res) => {
+        setTimeout(() => {
+            selectMenu();
+        }, 1000);
+    });
 }
 
 const viewRoles = () => {
-    Queries.viewRoleQuery();
+    Queries.viewRoleQuery().then((res) => {
+        setTimeout(() => {
+            selectMenu();
+        }, 1000);
+    });
 }
 
 const viewEmployees = () => {
-    Queries.viewEmpQuery();
+    Queries.viewEmpQuery().then((res) => {
+        setTimeout(() => {
+            selectMenu();
+        }, 1000);
+    });
 }
 
 const updateEmployee = () => {
     prompt(uEmpInput).then(({ updateRoleID, empUpdate }) => {
-        Queries.updateEmployeeQuery(updateRoleID, empUpdate);
+        Queries.updateEmployeeQuery(updateRoleID, empUpdate).then((res) => {
+            console.log(`Updated role ID for employee ${empUpdate}`);
+            setTimeout(() => {
+                selectMenu();
+            }, 1000);
+        });
     });
+
 }
 
 const quit = () => {
     Queries.quitConnection();
 }
-
-
-
-
-
-
 
 // Need Select menu prompt to trigger what task a user is trying to do
 
