@@ -119,6 +119,18 @@ const deleteDepartment = () => {
     });
 }
 
+const deleteRole = () => {
+    Queries.deleteRoleQuery().then((res) => {
+        viewRoles();
+    });
+}
+
+const deleteEmployee = () => {
+    Queries.deleteEmpQuery().then((res) => {
+        viewEmployees();
+    });
+}
+
 const quit = () => {
     Queries.quitConnection();
 }
