@@ -6,15 +6,15 @@
 
 This is a CLI application to add, retrieve, update, and delete data pertaining to a group of employees that is stored in an MySQL database called `employee_tracker`. Using NPM Inquirer a user can navigate through a menu to select one of the following options:
 
-- Add Department/Role/Employee - _Allows a user to add a new department, role, or employee to the `employee_tracker` MySQL database._
+- **Add Department/Role/Employee** - Allows a user to add a new department, role, or employee to the `employee_tracker` MySQL database.
 
-- View Department/Role/Employee - _Upon selection, a table of all departments, roles, and employees from the `employee_tracker` MySQL database is returned to the user in their terminal._
+- **View Department/Role/Employee** - Upon selection, a table of all departments, roles, and employees from the `employee_tracker` MySQL database is returned to the user in their terminal.
 
-- Update Employee Role - _This feature allows a user to update the role of an employee currently in the `employee_tracker` MySQL database._
+- **Update Employee Role** - This feature allows a user to update the role of an employee currently in the `employee_tracker` MySQL database.
 
-- Delete Department/Role/Employee - _When the `Delete Menu` option is selected from the main menu prompt, another prompt asking the user what they would like to delete (a department, role, or employee) is shown. From there a user is returned with a list of either departments, roles, and employees. When a user selects an item from the list it is deleted from the the `employee_tracker` MySQL database and an updated table of either departments, roles, and employees is returned._
+- **Delete Department/Role/Employee** - When the `Delete Menu` option is selected from the main menu prompt, another prompt asking the user what they would like to delete (a department, role, or employee) is shown. From there a user is returned with a list of either departments, roles, and employees. When a user selects an item from the list it is deleted from the the `employee_tracker` MySQL database and an updated table of either departments, roles, and employees is returned.
 
-- Quit - _When selected the application's connection ends with the MySQL database ends and the user is returned back to their terminal on a new line._
+- **Quit** - When selected the application's connection ends with the MySQL database ends and the user is returned back to their terminal on a new line.
 
 ## Technologies Used
 
